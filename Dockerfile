@@ -27,7 +27,7 @@ EXPOSE 28680
 
 EXPOSE 28690
 
-WORKDIR /opt
+WORKDIR /home/graft-sn/supernode
 
 CMD graftnoded --testnet --detach
 
