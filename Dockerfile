@@ -1,5 +1,5 @@
 ############################################################################################################################################
-## Pull latest Alpha3 Code and deploy - fez29/graftnoded-jagerman:experimental - 26 Nov 2018
+## Latest experimental Alpha3 Code and deploy - fez29/graftnoded-jagerman:experimental - 26 Nov 2018
 ############################################################################################################################################
 
 FROM ubuntu:18.04 as build
@@ -19,8 +19,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/
 
-RUN mkdir -p /root/.graft && \
-        apt-get update && apt-get install --no-install-recommends -y supervisor
+RUN apt-get update && apt-get install --no-install-recommends -y supervisor
 
 RUN apt-get clean && apt-get autoremove -y
 
@@ -30,14 +29,9 @@ EXPOSE 28690
 
 WORKDIR /opt
 
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
-
 CMD graftnoded --testnet --detach
 
-RUN cd /home/graft-sn/supernode/
-
-CMD graft_server --log-file supernode.log --log-level 1 > out.log 2>&1
-
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 #########################
 #WORKIN
 #########################
