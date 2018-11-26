@@ -17,7 +17,7 @@ ENV PACKAGES git ca-certificates
 
 RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd /opt && git clone https://github.com/Fez29/fez-graft-docker.git && apt-get clean && apt-get autoremove -y && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-        cp -r /opt/fez29-graft-docker/supervisor/etc/supervisor/ /etc/
+        cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/
 
 RUN mkdir -p /root/.graft && \
         apt-get update && apt-get install --no-install-recommends -y supervisor
