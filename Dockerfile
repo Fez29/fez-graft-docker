@@ -1,39 +1,43 @@
-FROM ubuntu:18.04
+############################################################################################################################################
+## Pull latest Alpha3 Code and deploy - fez29/graftnoded-jagerman:experimental - 26 Nov 2018
+############################################################################################################################################
 
-ENV SRC_DIR $HOME/GraftNetwork
+FROM ubuntu:18.04 as build
 
-ENV BUILD_PACKAGES ca-certificates git build-essential cmake pkg-config libboost-all-dev libssl-dev autoconf automake check libpcre3-dev rapidjson-dev libreadline-dev
+ENV BUILD_PACKAGES ca-certificates curl gnupg2
 
 RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 
-RUN cd $HOME
+RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
+    echo "deb https://deb.graft.community bionic main" | tee /etc/apt/sources.list.d/graft.community.list
 
-RUN git clone --recursive https://github.com/jagerman/GraftNetwork.git && \
-        cd GraftNetwork && \
-        git checkout multi-sn && \
-        git submodule update --init --recursive
+RUN apt update && apt install graft-supernode-wizard -y
 
-RUN cd && \
-        mkdir -p ~/supernode/bin && \
-        cd ~/supernode/bin && \
-        cmake -DENABLE_SYSLOG=ON $SRC_DIR && \
-        make
+ENV PACKAGES git ca-certificates
 
-RUN cd ~/supernode/bin/bin && \
-        cp ** //opt
+RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd /opt && git clone https://github.com/Fez29/fez-graft-docker.git && apt-get clean && apt-get autoremove -y && \
+        rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+        cp -r /opt/fez29-graft-docker/supervisor/etc/supervisor/ /etc/
 
-RUN apt-get update && apt-get install --no-install-recommends -y supervisor
+RUN mkdir -p /root/.graft && \
+        apt-get update && apt-get install --no-install-recommends -y supervisor
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && apt-get autoremove -y
 
-RUN cd /opt && git clone https://github.com/MustDie95/graft.git
-
-RUN cp -r /opt/graft/supervisor/etc/supervisor/ /etc/
-
-RUN mkdir /root/.graft
+EXPOSE 28680
 
 EXPOSE 28690
 
 WORKDIR /opt
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+
+CMD graftnoded --testnet --detach
+
+RUN cd /home/graft-sn/supernode/
+
+CMD graft_server --log-file supernode.log --log-level 1 > out.log 2>&1
+
+#########################
+#WORKIN
+#########################
