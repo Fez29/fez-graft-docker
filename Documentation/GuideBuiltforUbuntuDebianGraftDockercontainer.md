@@ -1,3 +1,4 @@
+# README
 # GuideBuiltforUbuntu-DebianGraftDockercontainer
 
 Thanks to Jason @jagerman42 (Telegram handle) for the alpha 3 code fork and optimizations included, including the wizard to install his packages and the watch-only-wallets download for testnet. https://github.com/graft-community/GraftNetwork  
@@ -308,7 +309,7 @@ mkdir ~/.graft2
 ````
 Use same docker run command but edit the exposed port like below:
 ````bash
-sudo docker run --name graft -d -v $HOME/.graft2:/root/.graft2 -p 38690:28690 -p 38680:28680 fez29/graftnoded-jagerman:Jagerman-Experiment_fez29
+sudo docker run --name graft2 -d -v $HOME/.graft2:/root/.graft2 -p 38690:28690 -p 38680:28680 fez29/graftnoded-jagerman:Jagerman-Experiment_fez29
 ````
 Then go supervisor config and add p2p-external-flag switch to tell graftnoded exposed port is not asme as its bound to like (38680 being the port used in the above run command):
 
