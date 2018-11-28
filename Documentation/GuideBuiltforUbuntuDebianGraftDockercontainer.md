@@ -198,15 +198,15 @@ Test list from external:
 
 Stop and Start container (use name from docker run command)
 ````bash
-sudo stop graft
-sudo start graft
+sudo docker stop graft
+sudo docker start graft
 ````
 
 To setup docker so that container starts automatically if machine restarted:
 
 On running container after exiting container - just type exit when logged in to exit
 ````bash
-docker container update --restart unless-stopped graft
+sudo docker container update --restart unless-stopped graft
 ````
 graft in above is the --name used in the docker run command
 
@@ -275,8 +275,8 @@ nano graft_server.conf
 restart container by exiting container:
 Type: exit  until you see you have exited the container.
 ````bash
-sudo stop graft
-sudo start graft
+sudo docker stop graft
+sudo docker start graft
 ````
 
 ## To build image from scratch:
