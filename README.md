@@ -1,6 +1,5 @@
-# fez-graft-docker
-
-# Guide Built for Ubuntu 18.04 - Docker container
+# README
+# GuideBuiltforUbuntu-DebianGraftDockercontainer
 
 Thanks to Jason @jagerman42 (Telegram handle) for the alpha 3 code fork and optimizations included, including the wizard to install his packages and the watch-only-wallets download for testnet. https://github.com/graft-community/GraftNetwork  
 
@@ -12,13 +11,62 @@ Thanks to @mv1879 for the assistance in building this guide in markdown and in t
 
 Thanks to @CryptoRobo747 for assitance in testing the guide and implementation.
 
-Tested on Debian 9.6 and Ubuntu 18.04 using stable Docker repo.
+Tested on Debian 9.6 & Ubuntu 18.04 & Ubuntu 16.04 using stable Docker repo.
  
 ## Resources:
 * Telegram Handle: @Fezz27
 * Github: https://github.com/Fez29/fez-graft-docker.git
 * Docker Hub: https://hub.docker.com/r/fez29/graftnoded-jagerman/
- 
+
+## Add User
+Logged in as root and "username being your username you have chosen":
+````bash
+adduser username
+````
+* Set and confirm the new user's password at the prompt. A strong password is highly recommended!
+````bash
+Set password prompts:
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+Note: if you are running as root please exclude any sudo references below:
+````
+* Follow the prompts to set the new user's information. It is fine to accept the defaults to leave all of this information blank.
+````bash
+User information prompts:
+Changing the user information for username
+Enter the new value, or press ENTER for the default
+    Full Name []:
+    Room Number []:
+    Work Phone []:
+    Home Phone []:
+    Other []:
+Is the information correct? [Y/n]
+````
+````bash
+usermod -aG sudo username
+````
+By default, on Ubuntu, members of the sudo group have sudo privileges.
+* Use the su command to switch to the new user account.
+````bash
+su - username
+````
+* As the new user, verify that you can use sudo by prepending "sudo" to the command that you want to run with superuser privileges.
+````bash
+username# sudo command_to_run
+````
+* For example, you can list the contents of the /root directory, which is normally only accessible to the root user.
+````bash
+username#  sudo ls -la /root
+````
+* The first time you use sudo in a session, you will be prompted for the password of the user account. Enter the password to proceed.
+````bash
+Output:
+[sudo] password for username:
+````
+If your user is in the proper group and you entered the password correctly, the command that you issued with sudo should run with root privileges.
+
+## Install Docker as non-root user
 Note: if you are running as root please exclude any sudo references below:
 
 ````bash
