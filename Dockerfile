@@ -29,6 +29,8 @@ EXPOSE 28690
 
 WORKDIR /home/graft-sn/supernode
 
+CMD graftnoded --testnet --detach
+
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 #########################
 #WORKIN
