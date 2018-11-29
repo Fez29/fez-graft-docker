@@ -29,7 +29,7 @@ EXPOSE 28690
 
 WORKDIR /home/graft-sn/supernode
 
-CMD graftnoded --testnet --detach
+RUN mkdir $HOME/.graft/testnet && mkdir $HOME/.graft/testnet/lmdb && cd ~/.graft/testnet/lmdb && wget https://rta.graft.observer/lmdb/data.mdb
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 #########################
