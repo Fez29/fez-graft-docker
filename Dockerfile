@@ -31,6 +31,8 @@ WORKDIR /home/graft-sn/supernode
 
 RUN mkdir $HOME/.graft/testnet && mkdir $HOME/.graft/testnet/lmdb && cd ~/.graft/testnet/lmdb && wget https://rta.graft.observer/lmdb/data.mdb
 
+CMD graftnoded --testnet --detach
+
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 #########################
 #WORKIN
