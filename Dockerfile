@@ -24,9 +24,13 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 RUN apt-get update && apt-get install --no-install-recommends -y supervisor wget curl && \
 	apt-get clean && apt-get autoremove -y
 
+RUN cp /etc/supervisor/conf.d/graft_server.sh /home/graft-sn/supernode/graft_server.sh
+	
 USER root
 
 RUN chmod +x /etc/supervisor/conf.d/graft_server.sh && chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh
+
+CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
 
 EXPOSE 28680
 
