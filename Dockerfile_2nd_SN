@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 RUN apt-get update && apt-get install --no-install-recommends -y supervisor wget curl && \
 	apt-get clean && apt-get autoremove -y
 
-RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded2.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh
+RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh
 
 CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
 
