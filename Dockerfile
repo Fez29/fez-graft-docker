@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 
 RUN apt-get update && apt-get install --no-install-recommends -y supervisor && \
 	apt-get clean && apt-get autoremove -y
+	
+RUN apt update && apt install wget -y
 
 EXPOSE 38680
 
