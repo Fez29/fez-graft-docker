@@ -28,11 +28,13 @@ EXPOSE 28680
 
 EXPOSE 28690
 
-WORKDIR /home/graft-sn/supernode
+RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded2.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh && /etc/supervisor/conf.d/blockchain.sh
 
-RUN mkdir $HOME/.graft && $HOME/.graft/testnet && mkdir $HOME/.graft/testnet/lmdb && cd ~/.graft/testnet/lmdb && wget https://rta.graft.observer/lmdb/data.mdb
-
+CMD ["/etc/supervisor/conf.d/blockchain.sh"]
+CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+
+WORKDIR /home/graft-sn/supernode
 #########################
 #WORKIN
 #########################
