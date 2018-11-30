@@ -21,10 +21,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 		rm -r /opt/fez-graft-docker && \
 		apt-get clean && apt-get remove $PACKAGES -y && apt-get autoremove -y
 
-RUN apt-get update && apt-get install --no-install-recommends -y supervisor && \
+RUN apt-get update && apt-get install --no-install-recommends -y supervisor wget curl && \
 	apt-get clean && apt-get autoremove -y
-	
-RUN apt update && apt install wget -y
 
 EXPOSE 38680
 
