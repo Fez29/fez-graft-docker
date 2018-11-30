@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/ && \
 		rm -r /opt/fez-graft-docker && \
-		apt-get clean && apt-get remove $PACKAGES && apt-get autoremove -y
+		apt-get clean && apt-get remove $PACKAGES -y && apt-get autoremove -y
 
 RUN apt-get update && apt-get install --no-install-recommends -y supervisor && \
 	apt-get clean && apt-get autoremove -y
