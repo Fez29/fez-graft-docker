@@ -28,7 +28,7 @@ RUN cp /etc/supervisor/conf.d/graft_server.sh /home/graft-sn/supernode/graft_ser
 	
 USER root
 
-RUN chmod +x /etc/supervisor/conf.d/graft_server.sh && chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh
+RUN chmod 777 /home/graft-sn/supernode/graft_server.sh && chmod 777 /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh
 
 CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
 
