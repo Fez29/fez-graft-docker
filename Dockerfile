@@ -17,14 +17,14 @@ ENV PACKAGES git ca-certificates
 
 RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd /opt && git clone --recursive -b 2ndcontainerGraft https://github.com/Fez29/fez-graft-docker.git && apt-get clean && apt-get autoremove -y && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-        cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/ && \
+        cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/* /etc/ && \
 		rm -r /opt/fez-graft-docker && \
 		apt-get clean && apt-get remove $PACKAGES -y && apt-get autoremove -y
 
 RUN apt-get update && apt-get install --no-install-recommends -y supervisor wget curl && \
 	apt-get clean && apt-get autoremove -y
 
-RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_2.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh
+RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded2.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh
 
 CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
 

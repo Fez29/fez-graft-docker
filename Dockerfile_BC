@@ -28,7 +28,7 @@ EXPOSE 28680
 
 EXPOSE 28690
 
-RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_2.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh && /etc/supervisor/conf.d/blockchain.sh
+RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded2.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh && /etc/supervisor/conf.d/blockchain.sh
 
 CMD ["/etc/supervisor/conf.d/blockchain.sh"]
 CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
