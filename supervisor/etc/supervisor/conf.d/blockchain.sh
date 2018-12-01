@@ -1,1 +1,1 @@
-mkdir ~/.graft && ~/.graft/testnet && mkdir ~/.graft/testnet/lmdb && cd ~/.graft/testnet/lmdb && wget https://rta.graft.observer/lmdb/data.mdb
+graftnoded --testnet stop_daemon && cd $HOME/.graft/testnet/lmdb && rm -r data.mdb &&  wget https://rta.graft.observer/lmdb/data.mdb && /etc/supervisor/conf.d/graftnoded.sh
