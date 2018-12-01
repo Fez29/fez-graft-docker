@@ -1,5 +1,5 @@
 ############################################################################################################################################
-## Latest experimental Alpha3 Code and deploy - fez29/graftnoded-jagerman:experimental - 26 Nov 2018
+## Latest experimental Alpha3 Code and deploy - fez29/graftnoded-jagerman:experimental - 26 Nov 2018 - https://deb.graft.community/
 ############################################################################################################################################
 
 FROM ubuntu:18.04
@@ -8,8 +8,8 @@ ENV BUILD_PACKAGES ca-certificates curl gnupg2
 
 RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 
-RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
-    echo "deb https://deb.graft.community bionic main" | tee /etc/apt/sources.list.d/graft.community.list
+RUN curl -s https://deb.graft.community/public.gpg | apt-key add -
+    echo "deb https://deb.graft.community sid main" | tee /etc/apt/sources.list.d/graft.community.list
 
 RUN apt update && apt install graft-supernode-wizard selinux-basics -y
 
@@ -26,9 +26,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y supervisor wget
 
 RUN apt update && apt install ca-certificates -y
 
-EXPOSE 28680
+EXPOSE 38680
 
-EXPOSE 28690
+EXPOSE 38690
 
 RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /etc/supervisor/conf.d/watch_only_wallets.sh && chmod +x /etc/supervisor/conf.d/blockchain.sh
 
