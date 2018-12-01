@@ -1,1 +1,1 @@
-bash -c 'sleep 2 && mkdir $HOME/.graft && $HOME/.graft/testnet && mkdir $HOME/.graft/testnet/lmdb && cd ~/.graft/testnet/lmdb && wget https://rta.graft.observer/lmdb/data.mdb'
+mkdir ~/.graft && ~/.graft/testnet && mkdir ~/.graft/testnet/lmdb && cd ~/.graft/testnet/lmdb && wget https://rta.graft.observer/lmdb/data.mdb
