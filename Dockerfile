@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 		rm -r /opt/fez-graft-docker && \
 		apt-get clean && apt-get autoremove -y
 
-RUN apt-get update && apt-get install --no-install-recommends -y supervisor wget curl && \
+RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates supervisor wget curl && \
 	apt-get clean && apt-get autoremove -y
 
 RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh
