@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates supervisor wget curl && \
 	apt-get clean && apt-get autoremove -y
 
-RUN chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh
+RUN cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh && cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage && chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /home/graft-sn/supernode/blockchain.sh
 
 CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
 
