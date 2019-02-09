@@ -1,5 +1,5 @@
 ############################################################################################################################################
-## Latest experimental Alpha3 Code and deploy - fez29/graftnoded-jagerman:experimental - 26 Nov 2018
+## Latest experimental Alpha4 Code and deploy - fez29/graftnoded-jagerman:experimental - 09 Feb 2019
 ############################################################################################################################################
 
 FROM ubuntu:18.04
@@ -25,6 +25,13 @@ RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates
 	apt-get clean && apt-get autoremove -y
 
 RUN cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh && cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage && chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /home/graft-sn/supernode/blockchain.sh
+
+RUN cd /home/graft-sn/supernode && git clone https://github.com/Fez29/graft-sn-watchdog.git \
+		&& cd graft-sn-watchdog \ 
+		&& chmod +x gn.sh \ 
+		&& chmod +x gs.sh \
+		&& apt-get install python3-pip -y && \
+		&& pip3 install requests -y
 
 CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
 
