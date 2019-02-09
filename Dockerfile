@@ -15,7 +15,7 @@ RUN apt update && apt install graft-supernode-wizard selinux-basics -y
 
 ENV PACKAGES git ca-certificates
 
-RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd /opt && git clone --recursive -b feature-watchdog_telegrambot https://github.com/Fez29/fez-graft-docker.git && apt-get clean && apt-get autoremove -y && \
+RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd /opt && git clone --recursive -b feature_watchdog_telegrambot https://github.com/Fez29/fez-graft-docker.git && apt-get clean && apt-get autoremove -y && \
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/ && \
 		rm -r /opt/fez-graft-docker && \
