@@ -24,7 +24,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates supervisor wget curl && \
 	apt-get clean && apt-get autoremove -y
 
-RUN cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh && cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage && chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /home/graft-sn/supernode/blockchain.sh
+RUN cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh /
+	&& cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage /
+	&& chmod +x /etc/supervisor/conf.d/graftnoded.sh /
+	&& chmod +x /etc/supervisor/conf.d/graftnoded_second.sh /
+	&& chmod +x /home/graft-sn/supernode/blockchain.sh
 
 RUN cd /home/graft-sn/supernode && git clone https://github.com/Fez29/graft-sn-watchdog.git \
 		&& cd graft-sn-watchdog \ 
