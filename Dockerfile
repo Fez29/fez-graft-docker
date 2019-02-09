@@ -30,7 +30,7 @@ RUN cd /home/graft-sn/supernode && git clone https://github.com/Fez29/graft-sn-w
 		&& cd graft-sn-watchdog \ 
 		&& chmod +x gn.sh \ 
 		&& chmod +x gs.sh \
-		&& apt-get install python3-pip -y && \
+		&& apt-get install python3-pip -y \
 		&& pip3 install requests -y
 
 CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
