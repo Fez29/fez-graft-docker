@@ -42,7 +42,7 @@ CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 RUN groupadd -g 999 gareth && \
     useradd -r -u 999 -g gareth gareth
 
-RUN cp /etc/sudoers /etc/sudoers.bak &&
+RUN cp /etc/sudoers /etc/sudoers.bak && \
 	sed '$ a\gareth ALL=(ALL) NOPASSWD: /' /etc/sudoers
 
 USER gareth
