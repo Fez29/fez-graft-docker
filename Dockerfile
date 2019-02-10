@@ -57,6 +57,8 @@ RUN chmod 777 /home /opt /.graft /home/graft-sn /home/gareth
 
 RUN cat /etc/sudoers
 
+RUN ln -sf bash /bin/sh
+
 USER gareth
 
 CMD ["/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
