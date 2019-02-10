@@ -63,7 +63,12 @@ USER gareth
 
 WORKDIR /home/graft-sn/supernode/
 
-ENTRYPOINT /home/graft-sn/supernode/graft-sn-watchdog/gn.sh > gn.log 2>&1 &
+COPY /home/graft-sn/supernode/graft-sn-watchdog/gn.sh /
+COPY /home/graft-sn/supernode/graft-sn-watchdog/gn.sh /
+
+ENTRYPOINT ["/gn.sh"]
+
+ENTRYPOINT ["/gs.sh"]
 
 ENTRYPOINT /home/graft-sn/supernode/graft-sn-watchdog/gs.sh > gs.log 2>&1 &
 #########################
