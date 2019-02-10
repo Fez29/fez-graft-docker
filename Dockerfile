@@ -49,8 +49,8 @@ RUN cat >> /etc/sudoers gareth ALL=(ALL) NOPASSWD: /
 
 ##	sed '$ a\gareth ALL=(ALL) NOPASSWD: /' /etc/sudoers.bak
 
-RUN rm -r /etc/sudoers && \
-	cp /etc/sudoers.bak /etc/sudoers
+##RUN rm -r /etc/sudoers && \
+##	cp /etc/sudoers.bak /etc/sudoers
 	
 RUN cat /etc/sudoers
 
