@@ -44,11 +44,10 @@ RUN apt install sudo -y && \
 	cp /etc/sudoers /etc/sudoers.bak
 
 RUN cd /home/graft-sn/supernode/ \
-	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini
+	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
+	&& mkdir -p /home/gareth/.graft
 
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-RUN mkdir -p /home/gareth/.graft
 
 RUN chown -R gareth: /home /opt /.graft /home/graft-sn /home/gareth
 RUN chmod 777 /home /opt /.graft /home/graft-sn /home/gareth
