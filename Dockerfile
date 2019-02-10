@@ -48,7 +48,7 @@ RUN apt install sudo -y && \
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN chown -R gareth:gareth /
-RUN chmod 755 /
+RUN chmod 755 /root
 
 RUN cat /etc/sudoers
 
