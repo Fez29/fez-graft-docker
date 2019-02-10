@@ -61,9 +61,9 @@ RUN ln -sf bash /bin/sh
 
 USER gareth
 
-CMD ["/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
+CMD /home/graft-sn/supernode/graft-sn-watchdog/gn.sh
 
-CMD ["/home/graft-sn/supernode/graft-sn-watchdog/gs.sh"]
+CMD /home/graft-sn/supernode/graft-sn-watchdog/gs.sh
 
 WORKDIR /home/graft-sn/supernode/
 #########################
