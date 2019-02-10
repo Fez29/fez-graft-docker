@@ -33,20 +33,21 @@ RUN cd /home/graft-sn/supernode && git clone https://github.com/Fez29/graft-sn-w
 		&& apt-get install python3-pip -y \
 		&& pip3 install requests
 
-CMD ["/etc/supervisor/conf.d/watch_only_wallets.sh"]
-
 EXPOSE 28680
 
 EXPOSE 28690
 
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+
 RUN groupadd -g 999 gareth && \
     useradd -r -u 999 -g gareth gareth
 
+RUN cp /etc/sudoers /etc/sudoers.bak &&
+	sed '$ a\gareth ALL=(ALL) NOPASSWD: /' /etc/sudoers
+
 USER gareth
 
-WORKDIR /home/graft-sn/supernode
-
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+WORKDIR /$HOME
 #########################
 #WORKIN
 #########################
