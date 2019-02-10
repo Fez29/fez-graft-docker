@@ -57,7 +57,7 @@ RUN cat /etc/sudoers
 
 RUN mkdir -p /home/gareth
 
-RUN sudo python3 snwatchdog.py --log-level 1 > watchdog.log 2>&1
+RUN python3 snwatchdog.py --log-level 1 > watchdog.log 2>&1
 
 USER gareth
 
