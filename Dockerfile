@@ -4,7 +4,7 @@
 
 FROM ubuntu:18.04
 
-ENV BUILD_PACKAGES ca-certificates curl gnupg2
+ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed
 
 RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 
