@@ -39,14 +39,14 @@ EXPOSE 28680
 
 EXPOSE 28690
 
-WORKDIR /home/graft-sn/supernode
-
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
-
 RUN groupadd -g 999 gareth && \
     useradd -r -u 999 -g gareth gareth
 
 USER gareth
+
+WORKDIR /home/graft-sn/supernode
+
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 #########################
 #WORKIN
 #########################
