@@ -56,7 +56,7 @@ CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 
 USER gareth
 
-RUN $HOME = /
+ENV $HOME = /
 
 WORKDIR /home/graft-sn/supernode/
 #########################
