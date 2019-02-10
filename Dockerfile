@@ -50,12 +50,12 @@ RUN cd /home/graft-sn/supernode/ && \
 
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-RUN chown -R gareth: /home /opt /.graft /home/graft-sn
-RUN chmod 777 /home /opt /.graft /home/graft-sn
+RUN mkdir -p /home/gareth/.graft
+
+RUN chown -R gareth: /home /opt /.graft /home/graft-sn /home/gareth
+RUN chmod 777 /home /opt /.graft /home/graft-sn /home/gareth
 
 RUN cat /etc/sudoers
-
-RUN mkdir -p /home/gareth
 
 USER gareth
 
