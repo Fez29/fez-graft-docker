@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates
 
 RUN cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh && cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage && chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /home/graft-sn/supernode/blockchain.sh
 
-RUN cd /home/graft-sn/supernode && git clone https://github.com/Fez29/graft-sn-watchdog.git \
+RUN cd /home/graft-sn/supernode && git clone --recursive -b master https://github.com/Fez29/graft-sn-watchdog.git \
 		&& cd graft-sn-watchdog \ 
 		&& chmod +x gn.sh \ 
 		&& chmod +x gs.sh \
@@ -62,8 +62,6 @@ RUN ln -sf bash /bin/sh
 WORKDIR /home/graft-sn/supernode/
 
 ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
-
-ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gs.sh"]
 
 USER gareth
 #########################
