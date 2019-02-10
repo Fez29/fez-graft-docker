@@ -39,8 +39,6 @@ EXPOSE 28690
 
 RUN mkdir -p /.graft
 
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
-
 RUN groupadd -g 999 gareth && \
     useradd -r -u 999 -g gareth gareth
 
@@ -50,13 +48,15 @@ RUN apt install sudo -y && \
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN chown -R gareth: /var /home /etc /opt /usr /.graft
-RUN chmod 755 /var /home /etc /opt /usr /.graft
+RUN chmod 755 /var /home /etc /opt /.graft
 
 RUN cat /etc/sudoers
 
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+
 USER gareth
 
-WORKDIR /$HOME
+WORKDIR /home/graft-sn/supernode/
 #########################
 #WORKIN
 #########################
