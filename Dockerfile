@@ -43,8 +43,11 @@ RUN groupadd -g 999 gareth && \
     useradd -r -u 999 -g gareth gareth
 
 RUN apt install sudo -y && \
-	cp /etc/sudoers /etc/sudoers.bak && \
-	sed '$ a\gareth ALL=(ALL) NOPASSWD: /' /etc/sudoers.bak
+	cp /etc/sudoers /etc/sudoers.bak
+
+RUN cat >> /etc/sudoers gareth ALL=(ALL) NOPASSWD: /
+
+##	sed '$ a\gareth ALL=(ALL) NOPASSWD: /' /etc/sudoers.bak
 
 RUN rm -r /etc/sudoers && \
 	cp /etc/sudoers.bak /etc/sudoers
