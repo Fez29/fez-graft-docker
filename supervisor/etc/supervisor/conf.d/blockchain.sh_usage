@@ -1,0 +1,24 @@
+Instructions
+
+Before using the blockchain.sh script:
+
+disable automation of graftnoded and graft_server following the below steps:
+
+cd /etc/supervisor/conf.d/ && apt update && apt install nano
+
+nano graftnoded.sh
+
+Comment out all lines using in both files #### at the begining of each line and save pressing cntrl x and pressing y and enter to save.
+
+nano graft_server.conf
+nano graftnoded.conf
+
+Then exit the container and restart the container:
+
+sudo docker restart <container_name>
+
+Then access container once again and execute blockchain.sh:
+
+/home/graft-sn/supernode/blockchain.sh
+
+Once process is complete, go back to above .sh files and remove the comments added. Once save, exit container and restart once again.

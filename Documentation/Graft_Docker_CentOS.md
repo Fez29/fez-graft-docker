@@ -1,136 +1,73 @@
-# README
-# GuideBuiltforUbuntu-DebianGraftDockercontainer
+## Graft SN - CentOS Docker Guide
 
-Thanks to Jason @jagerman42 (Telegram handle) for the alpha 3 code fork and optimizations included, including the wizard to install his packages and the watch-only-wallets download for testnet. https://github.com/graft-community/GraftNetwork  
-
-Thanks to MustDie95 for the initial Docker build on Alpha3 code which I used as a backbone to get this running and tweaked his supervisor config to make the graftnoded and graft_server start automatically once the docker container starts. https://github.com/MustDie95/graft  
-
-Thanks to Tiago S @el_duderino_007 (Telegram handle) for the blockchain download and initail guide for installing Alpha3 code on server.
-
-Thanks to @mv1879 for the assistance in building this guide in markdown and in testing the guide, implementation and optimizing this guide.
-
-Thanks to @CryptoRobo747 for assitance in testing the guide and implementation.
-
-Tested on Debian 9.6 & Ubuntu 18.04 & Ubuntu 16.04 using stable Docker repo.
- 
-## Resources:
-* Telegram Handle: @Fezz27
-* Github: https://github.com/Fez29/fez-graft-docker.git
-* Docker Hub: https://hub.docker.com/r/fez29/graftnoded-jagerman/
-
-## Add User
-Logged in as root and "username being your username you have chosen":
+Older versions of Docker were called docker or docker-engine. If these are installed, uninstall them, along with associated dependencies:
+Copy and paste entire command:
 ````bash
-adduser username
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine             
 ````
-* Set and confirm the new user's password at the prompt. A strong password is highly recommended!
-````bash
-Set password prompts:
-Enter new UNIX password:
-Retype new UNIX password:
-passwd: password updated successfully
-Note: if you are running as root please exclude any sudo references below:
-````
-* Follow the prompts to set the new user's information. It is fine to accept the defaults to leave all of this information blank.
-````bash
-User information prompts:
-Changing the user information for username
-Enter the new value, or press ENTER for the default
-    Full Name []:
-    Room Number []:
-    Work Phone []:
-    Home Phone []:
-    Other []:
-Is the information correct? [Y/n]
-````
-````bash
-usermod -aG sudo username
-````
-By default, on Ubuntu, members of the sudo group have sudo privileges.
-* Use the su command to switch to the new user account.
-````bash
-su - username
-````
-* As the new user, verify that you can use sudo by prepending "sudo" to the command that you want to run with superuser privileges.
-````bash
-username# sudo command_to_run
-````
-* For example, you can list the contents of the /root directory, which is normally only accessible to the root user.
-````bash
-username#  sudo ls -la /root
-````
-* The first time you use sudo in a session, you will be prompted for the password of the user account. Enter the password to proceed.
-````bash
-Output:
-[sudo] password for username:
-````
-If your user is in the proper group and you entered the password correctly, the command that you issued with sudo should run with root privileges.
+It’s OK if yum reports that none of these packages are installed.
 
-## Install Docker as non-root user
-Note: if you are running as root please exclude any sudo references below:
+The contents of /var/lib/docker/, including images, containers, volumes, and networks, are preserved. The Docker CE package is now called docker-ce.
+## Install using the repository
+Before you install Docker CE for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
 
+SET UP THE REPOSITORY
+Install required packages. yum-utils provides the yum-config-manager utility, and device-mapper-persistent-data and lvm2 are required by the devicemapper storage driver.
 ````bash
-sudo apt-get remove docker docker-engine docker.io
-sudo apt-get update
-sudo apt-get upgrade -y    # (for all promts just select keep as is) Optional
+sudo yum install -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2
 ````
-
-Install Docker dependencies (Copy entire command - all 6 lines and paste)
-
+Use the following command to set up the stable repository. You always need the stable repository, even if you want to install builds from the edge or test repositories as well.
 ````bash
-sudo apt-get install -y \
-apt-transport-https \
-ca-certificates \
-curl \
-gnupg2 \
-software-properties-common
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
 ````
- 
- Add Docker’s official GPG key:
-
+Optional: Enable the edge and test repositories. These repositories are included in the docker.repo file above but are disabled by default. You can enable them alongside the stable repository.
 ````bash
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+sudo yum-config-manager --enable docker-ce-edge
 ````
-
-Test success with:
-
-````bash
-sudo apt-key fingerprint 0EBFCD88
+```bash
+sudo yum-config-manager --enable docker-ce-test
 ````
-
-Should return:
-````bash
-	pub   4096R/0EBFCD88 2017-02-22
-	      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-	uid                  Docker Release (CE deb) <docker@docker.com>
-	sub   4096R/F273FCD8 2017-02-22
+You can disable the edge or test repository by running the yum-config-manager command with the --disable flag. To re-enable it, use the --enable flag. The following command disables the edge repository.
+```bash
+sudo yum-config-manager --disable docker-ce-edge
 ````
+Note: Starting with Docker 17.06, stable releases are also pushed to the edge and test repositories.
 
-## Add docker repo
-
-Stable repo:
-````bash
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+## INSTALL DOCKER CE
+Install the latest version of Docker CE, or go to the next step to install a specific version:
+```bash
+sudo yum install docker-ce -y
 ````
-Edge repo:
-````bash
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge"
-````
+If prompted to accept the GPG key, verify that the fingerprint matches 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35, and if so, accept it.
 
-Update apt again and install docker Community Edition:
-````bash
-sudo apt-get update
-sudo apt-get install -y docker-ce
-````
+Docker is installed but not started. The docker group is created, but no users are added to the Docker user group.
 
-Prepare Docker volume mount:
+Start Docker.
+```bash
+$ sudo systemctl start docker
+````
+## CHECK FROM here
+
+## Download image and run container after with mounted volume 
+<B>(Check [Optional](https://github.com/mv1879/docs/blob/master/Dockers%20by%20Fez.md#optional) at botom of this guide before continuing)</B>:
+
+Create home directory and volume mount point:
 ````bash
 mkdir $HOME/.graft
 ````
-
-## Download image and run container after with mounted volume 
-<B>(Check [Optional](https://github.com/mv1879/docs/blob/master/Dockers%20by%20Fez.md#optional) at botom of this guide before continuing)</B>
-:
 ````bash
 sudo docker run --name graft -d -v $HOME/.graft:/root/.graft -p 28690:28690 -p 28680:28680 fez29/graftnoded-jagerman:Jagerman-Experiment_fez29
 ````
@@ -198,15 +135,18 @@ Test list from external:
 
 Stop and Start container (use name from docker run command)
 ````bash
-sudo docker stop graft
-sudo docker start graft
+sudo stop graft
+sudo start graft
 ````
-
+Start Docker service on boot
+````bash
+sudo systemctl status
+````
 To setup docker so that container starts automatically if machine restarted:
 
 On running container after exiting container - just type exit when logged in to exit
 ````bash
-sudo docker container update --restart unless-stopped graft
+docker container update --restart unless-stopped graft
 ````
 graft in above is the --name used in the docker run command
 
@@ -217,12 +157,13 @@ any watch-only-wallets downloads on mainnet):
 
 Before running the image download and docker run step, download provided blockchain directory.
 ````bash
-sudo apt update
-sudo apt install unzip -y
+sudo yum install unzip -y
+sudo yum install wget -y
 mkdir $HOME/.graft		# (if not done already)
 wget "https://www.dropbox.com/s/b55s59bluvp8s1z/graft_bc_testnet_bkp_17Nov18.zip" -P /tmp
 unzip /tmp/graft_bc_testnet_bkp_17Nov18.zip '.graft/testnet/*' -d $HOME/
 ````
+Press A and press enter
 
 Go back to: [Download image and run container after with mounted volume ](https://github.com/mv1879/docs/blob/master/Dockers%20by%20Fez.md#add-docker-repo)
 
@@ -275,8 +216,8 @@ nano graft_server.conf
 restart container by exiting container:
 Type: exit  until you see you have exited the container.
 ````bash
-sudo docker stop graft
-sudo docker start graft
+sudo stop graft
+sudo start graft
 ````
 
 ## To build image from scratch:
@@ -309,7 +250,7 @@ mkdir ~/.graft2
 ````
 Use same docker run command but edit the exposed port like below:
 ````bash
-sudo docker run --name graft2 -d -v $HOME/.graft2:/root/.graft2 -p 38690:28690 -p 38680:28680 fez29/graftnoded-jagerman:Jagerman-Experiment_fez29
+sudo docker run --name graft -d -v $HOME/.graft2:/root/.graft2 -p 38690:28690 -p 38680:28680 fez29/graftnoded-jagerman:Jagerman-Experiment_fez29
 ````
 Then go supervisor config and add p2p-external-flag switch to tell graftnoded exposed port is not asme as its bound to like (38680 being the port used in the above run command):
 
@@ -323,3 +264,12 @@ nano graftnoded.conf
 ````bash
 command=graftnoded --testnet --p2p-external-port 38680 --detach
 ````
+
+
+
+
+install unzip -y
+
+
+
+
