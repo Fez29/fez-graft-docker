@@ -45,9 +45,7 @@ RUN groupadd -g 999 gareth && \
 RUN apt install sudo -y && \
 	cp /etc/sudoers /etc/sudoers.bak
 
-RUN cat >> /etc/sudoers 
-gareth ALL=(ALL) NOPASSWD: /
-/
+RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN cat /etc/sudoers
 
