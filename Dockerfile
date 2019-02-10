@@ -37,6 +37,8 @@ EXPOSE 28680
 
 EXPOSE 28690
 
+RUN mkdir -p /.graft
+
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 
 RUN groupadd -g 999 gareth && \
