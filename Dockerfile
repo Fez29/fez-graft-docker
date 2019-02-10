@@ -47,16 +47,16 @@ RUN apt install sudo -y && \
 
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-RUN chown -R gareth: /var /home /etc /opt /usr /.graft
+RUN chown -R gareth: /var /home /etc /opt /.graft
 RUN chmod 755 /var /home /etc /opt /.graft
 
 RUN cat /etc/sudoers
 
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
-
 USER gareth
 
 RUN export HOME=/
+
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 
 WORKDIR /home/graft-sn/supernode/
 #########################
