@@ -30,15 +30,12 @@ RUN cd /home/graft-sn/supernode && git clone --recursive -b master https://githu
 		&& cd graft-sn-watchdog \ 
 		&& chmod +x gn.sh \ 
 		&& chmod +x gs.sh \
-		&& chmod +x python.sh \
 		&& apt-get install python3-pip -y \
 		&& pip3 install requests
 
 EXPOSE 28680
 
 EXPOSE 28690
-
-RUN mkdir -p /.graft
 
 RUN groupadd -g 999 gareth && \
     useradd -r -u 999 -g gareth gareth
@@ -47,11 +44,7 @@ RUN apt install sudo -y && \
 	cp /etc/sudoers /etc/sudoers.bak
 
 RUN cd /home/graft-sn/supernode/ \
-	&& mkdir -p /home/graft-sn/supernode/graft-sn-watchdog/scripts \
-	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/scripts/config.ini \
-	&& cp /home/graft-sn/supernode/graft-sn-watchdog/gn.sh /home/graft-sn/supernode/graft-sn-watchdog/scripts/gn.sh \
-	&& cp /home/graft-sn/supernode/graft-sn-watchdog/gs.sh /home/graft-sn/supernode/graft-sn-watchdog/scripts/gs.sh \
-	&& cp /home/graft-sn/supernode/graft-sn-watchdog/python.sh /home/graft-sn/supernode/graft-sn-watchdog/scripts/python.sh
+	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini
 
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
@@ -66,7 +59,7 @@ RUN ln -sf bash /bin/sh
 
 WORKDIR /home/graft-sn/supernode/
 
-ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/scripts/all_scripts.sh"]
+ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
 
 USER gareth
 #########################
