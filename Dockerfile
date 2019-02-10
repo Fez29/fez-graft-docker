@@ -57,13 +57,13 @@ RUN cat /etc/sudoers
 
 RUN mkdir -p /home/gareth
 
+RUN sudo python3 snwatchdog.py --log-level 1 > watchdog.log 2>&1
+
 USER gareth
 
 CMD ["/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
 
 CMD ["/home/graft-sn/supernode/graft-sn-watchdog/gs.sh"]
-
-RUN sudo python3 snwatchdog.py --log-level 1 > watchdog.log 2>&1
 
 WORKDIR /home/graft-sn/supernode/
 #########################
