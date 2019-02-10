@@ -45,6 +45,9 @@ RUN groupadd -g 999 gareth && \
 RUN apt install sudo -y && \
 	cp /etc/sudoers /etc/sudoers.bak
 
+RUN cd /home/graft-sn/supernode/ && \
+	cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini
+
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN chown -R gareth: /var /home /etc /opt /.graft
@@ -52,11 +55,14 @@ RUN chmod 755 /var /home /etc /opt /.graft
 
 RUN cat /etc/sudoers
 
+RUN mkdir -p /home/gareth
+
 USER gareth
 
-RUN export HOME=/
-
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+RUN cd /home/graft-sn/supernode/graft-sn-watchdog && \
+	./gn.sh && \
+	./gs.sh && \
+	sudo python3 snwatchdog.py --log-level 1 > watchdog.log 2>&1
 
 WORKDIR /home/graft-sn/supernode/
 #########################
