@@ -45,8 +45,11 @@ RUN groupadd -g 999 gareth && \
 RUN apt install sudo -y && \
 	cp /etc/sudoers /etc/sudoers.bak
 
-RUN cd /home/graft-sn/supernode/ && \
-	cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini
+RUN cd /home/graft-sn/supernode/ \
+	&& mkdir -p /home/graft-sn/supernode/graft-sn-watchdog/scripts \
+	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/scripts/config.ini \
+	&& cp /home/graft-sn/supernode/graft-sn-watchdog/gn.sh /home/graft-sn/supernode/graft-sn-watchdog/scripts/gn.sh \
+	&& cp /home/graft-sn/supernode/graft-sn-watchdog/gs.sh /home/graft-sn/supernode/graft-sn-watchdog/scripts/gs.sh
 
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
@@ -61,7 +64,7 @@ RUN ln -sf bash /bin/sh
 
 WORKDIR /home/graft-sn/supernode/
 
-ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
+ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/scripts/all_scripts.sh"]
 
 USER gareth
 #########################
