@@ -49,7 +49,7 @@ RUN cd /home/graft-sn/supernode/ && \
 	cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini
 
 RUN cd /home/graft-sn/supernode/graft-sn-watchdog/ \	
-	&& basj -c "./gn.sh > gn.log 2>&1 &"
+	&& bash -c "./gn.sh > gn.log 2>&1 &"
 
 RUN cd /home/graft-sn/supernode/graft-sn-watchdog/ \
 	&& bash -c "./gs.sh > gs.log 2>&1 &"
