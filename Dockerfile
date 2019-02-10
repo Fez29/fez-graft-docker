@@ -38,19 +38,16 @@ EXPOSE 28680
 EXPOSE 28690
 
 RUN groupadd -g 999 gareth && \
-    useradd -r -u 999 -g gareth gareth
-
-RUN apt install sudo -y && \
-	cp /etc/sudoers /etc/sudoers.bak
+    useradd -r -u 999 -g gareth gareth \
+	&& apt install sudo -y \
+	&& cp /etc/sudoers /etc/sudoers.bak \
+	&& echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN cd /home/graft-sn/supernode/ \
 	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
-	&& mkdir -p /home/gareth/.graft
-
-RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-RUN chown -R gareth: /home /opt /.graft /home/graft-sn /home/gareth
-RUN chmod 777 /home /opt /.graft /home/graft-sn /home/gareth
+	&& mkdir -p /home/gareth/.graft \
+	&& chown -R gareth: /home /opt /home/graft-sn /home/gareth \
+	&& chmod 777 /home /opt /home/graft-sn /home/gareth
 
 RUN cat /etc/sudoers
 
