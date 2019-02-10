@@ -49,10 +49,10 @@ RUN cd /home/graft-sn/supernode/ && \
 	cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini
 
 RUN cd /home/graft-sn/supernode/graft-sn-watchdog/ \	
-	&& ./gn.sh > gn.log 2>&1 &
+	&& basj -c "./gn.sh > gn.log 2>&1 &"
 
 RUN cd /home/graft-sn/supernode/graft-sn-watchdog/ \
-	&& ./gs.sh > gs.log 2>&1 &
+	&& bash -c "./gs.sh > gs.log 2>&1 &"
 
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
