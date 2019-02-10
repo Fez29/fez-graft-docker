@@ -59,18 +59,13 @@ RUN cat /etc/sudoers
 
 RUN ln -sf bash /bin/sh
 
+WORKDIR /home/graft-sn/supernode/graft-sn-watchdog
+
+ENTRYPOINT ["gn.sh"]
+
+ENTRYPOINT ["gs.sh"]
+
 USER gareth
-
-WORKDIR /home/graft-sn/supernode/
-
-COPY /home/graft-sn/supernode/graft-sn-watchdog/gn.sh /
-COPY /home/graft-sn/supernode/graft-sn-watchdog/gn.sh /
-
-ENTRYPOINT ["/gn.sh"]
-
-ENTRYPOINT ["/gs.sh"]
-
-ENTRYPOINT /home/graft-sn/supernode/graft-sn-watchdog/gs.sh > gs.log 2>&1 &
 #########################
 #WORKIN
 #########################
