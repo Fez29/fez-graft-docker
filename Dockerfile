@@ -41,6 +41,9 @@ EXPOSE 28690
 
 WORKDIR /home/graft-sn/supernode
 
+RUN groupadd -g 999 gareth && \
+    useradd -r -u 999 -g gareth gareth
+
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 #########################
 #WORKIN
