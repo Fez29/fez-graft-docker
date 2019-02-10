@@ -48,12 +48,6 @@ RUN apt install sudo -y && \
 RUN cd /home/graft-sn/supernode/ && \
 	cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini
 
-RUN cd /home/graft-sn/supernode/graft-sn-watchdog/ \	
-	&& bash -c "./gn.sh > gn.log 2>&1 &"
-
-RUN cd /home/graft-sn/supernode/graft-sn-watchdog/ \
-	&& bash -c "./gs.sh > gs.log 2>&1 &"
-
 RUN echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN mkdir -p /home/gareth/.graft
@@ -68,6 +62,10 @@ RUN ln -sf bash /bin/sh
 USER gareth
 
 WORKDIR /home/graft-sn/supernode/
+
+ENTRYPOINT ["/home/graft-sn/supernode/graft-sn-watchdog/gn.sh > gn.log 2>&1 &"]
+
+ENTRYPOINT ["/home/graft-sn/supernode/graft-sn-watchdog/gn.sh > gn.log 2>&1 &"]
 #########################
 #WORKIN
 #########################
