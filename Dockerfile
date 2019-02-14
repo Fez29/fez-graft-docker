@@ -55,9 +55,9 @@ RUN ln -sf bash /bin/sh
 
 WORKDIR /home/graft-sn/supernode/
 
-ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
-
 USER gareth
+
+ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
 #########################
 #WORKIN
 #########################
