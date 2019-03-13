@@ -37,17 +37,17 @@ EXPOSE 28680
 
 EXPOSE 28690
 
-RUN groupadd -g 999 gareth && \
-    useradd -r -u 999 -g gareth gareth \
+RUN groupadd -g 999 graft && \
+    useradd -r -u 999 -g graft graft \
 	&& apt install sudo -y \
 	&& cp /etc/sudoers /etc/sudoers.bak \
-	&& echo "gareth ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+	&& echo "graft ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN cd /home/graft-sn/supernode/ \
 	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
-	&& mkdir -p /home/gareth/.graft \
-	&& chown -R gareth: /home /opt /home/graft-sn /home/gareth \
-	&& chmod 777 /home /opt /home/graft-sn /home/gareth
+	&& mkdir -p /home/graft/.graft \
+	&& chown -R graft: /home /opt /home/graft-sn /home/graft \
+	&& chmod 777 /home /opt /home/graft-sn /home/graft
 
 RUN cat /etc/sudoers
 
@@ -55,7 +55,7 @@ RUN ln -sf bash /bin/sh
 
 WORKDIR /home/graft-sn/supernode/
 
-USER gareth
+USER graft
 
 ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
 #########################
