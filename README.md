@@ -133,6 +133,10 @@ mkdir $HOME/.graft
 :
 ````bash
 sudo docker run --name graft -d -v $HOME/.graft:/root/.graft -p 28690:28690 -p 28680:28680 fez29/graftnoded-jagerman:Jagerman-Experiment_fez29
+
+Latest Alpha 5
+
+sudo docker run --name graft -u <UR_non root user> -d -v $HOME/.graft:/root/.graft -p 28690:28690 -p 28680:28680 fez29/graft-community-images
 ````
 
 Use docker exec to login to the container as root:
