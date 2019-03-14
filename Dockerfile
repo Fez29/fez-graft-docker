@@ -37,19 +37,19 @@ RUN apt install sudo -y \
 	&& cp /etc/sudoers /etc/sudoers.bak \
 	&& echo "graft-sn ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+USER graft-sn
+
 RUN cd /home/graft-sn/supernode/ \
-	&& cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
-	&& mkdir -p /home/graft/.graft \
-	&& chown -R graft-sn: /home /opt /home/graft-sn \
-	&& chmod 777 /home /opt /home/graft-sn
+	&& sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
+	&& sudo mkdir -p /home/graft/.graft \
+	&& sudo chown -R graft-sn: /home /opt /home/graft-sn \
+	&& sudo chmod -R 777 /home /opt /home/graft-sn
 
 RUN cat /etc/sudoers
 
 RUN ln -sf bash /bin/sh
 
 WORKDIR /home/graft-sn/supernode/
-
-USER graft-sn
 
 #ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
 #########################
