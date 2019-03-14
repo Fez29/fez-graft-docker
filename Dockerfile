@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
         rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/ && \
 		rm -r /opt/fez-graft-docker && \
-		apt-get clean && apt-get autoremove -y
+		apt-get clean && apt-get autoremove -y \
 
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget curl && \
 	apt-get clean && apt-get autoremove -y
@@ -40,7 +40,8 @@ RUN apt install sudo -y \
 USER graft-sn
 
 RUN cd /home/graft-sn/supernode/ \
-	&& sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
+	## OLD && sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
+	&& cp /usr/share/doc/graft-supernode/config.ini ~/config.ini
 	&& sudo mkdir -p /home/graft-sn/.graft \
 	&& usermod -a -G supernode graft-sn \
 	&& chgrp -R supernode /home/graft-sn \
