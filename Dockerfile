@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM debian:buster
 
 ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed sudo
 
