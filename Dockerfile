@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
     echo "deb https://deb.graft.community sid main" | tee /etc/apt/sources.list.d/graft.community.list
 
-RUN apt update && apt install graft-supernode-wizard selinux-basics -y
+RUN apt update && apt install graft-supernode-wizard selinux-basics -y && mkdir -p /home/graft-sn/supernode
 
 ENV PACKAGES git ca-certificates
 
@@ -41,9 +41,14 @@ USER graft-sn
 
 RUN cd /home/graft-sn/supernode/ \
 	&& sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
-	&& sudo mkdir -p /home/graft/.graft \
-	&& sudo chown -R graft-sn: /home /opt /home/graft-sn \
-	&& sudo chmod -R 777 /home /opt /home/graft-sn
+	&& sudo mkdir -p /home/graft-sn/.graft \
+	&& usermod -a -G supernode graft-sn \
+	&& chgrp -R supernode /home/graft-sn \
+	&& chmod -R g+w /home/graft-sn
+
+	####OLD
+	#&& sudo chown -R graft-sn: /home /opt /home/graft-sn \
+	#&& sudo chmod -R 777 /home /opt /home/graft-sn
 
 RUN cat /etc/sudoers
 
