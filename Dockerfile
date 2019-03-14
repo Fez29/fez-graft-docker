@@ -52,7 +52,7 @@ RUN cd /home/graft-sn/supernode/ \
 	#&& sudo chown -R graft-sn: /home /opt /home/graft-sn \
 	#&& sudo chmod -R 777 /home /opt /home/graft-sn
 
-RUN cat /etc/sudoers
+RUN sudo cat /etc/sudoers
 
 RUN ln -sf bash /bin/sh
 
