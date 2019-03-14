@@ -43,10 +43,10 @@ RUN cd /home/graft-sn/supernode/ \
 	## OLD && sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
 	&& cp /usr/share/doc/graft-supernode/config.ini ~/config.ini \
 	&& sudo mkdir -p /home/graft-sn/.graft \
-	&& groupadd supernode \
-	&& usermod -a -G supernode graft-sn \
-	&& chgrp -R supernode /home/graft-sn \
-	&& chmod -R g+w /home/graft-sn
+	&& sudo groupadd supernode \
+	&& sudo usermod -a -G supernode graft-sn \
+	&& sudo chgrp -R supernode /home/graft-sn \
+	&& sudo chmod -R g+w /home/graft-sn
 
 	####OLD
 	#&& sudo chown -R graft-sn: /home /opt /home/graft-sn \
