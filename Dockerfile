@@ -1,15 +1,11 @@
-############################################################################################################################################
-## Latest experimental Alpha4 Code and deploy - fez29/graftnoded-jagerman:experimental - 09 Feb 2019
-############################################################################################################################################
-
 FROM ubuntu:18.04
 
 ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed
 
 RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 
-RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
-    echo "deb https://deb.graft.community bionic main" | tee /etc/apt/sources.list.d/graft.community.list
+RUN curl -s https://deb.graft.community/public.gpg | sudo apt-key add -
+    echo "deb https://deb.graft.community sid main" | sudo tee /etc/apt/sources.list.d/graft.community.list
 
 RUN apt update && apt install graft-supernode-wizard selinux-basics -y
 
@@ -21,15 +17,15 @@ RUN apt-get update && apt-get install --no-install-recommends -y $PACKAGES && cd
 		rm -r /opt/fez-graft-docker && \
 		apt-get clean && apt-get autoremove -y
 
-RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates supervisor wget curl && \
+RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget curl && \
 	apt-get clean && apt-get autoremove -y
 
 RUN cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh && cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage && chmod +x /etc/supervisor/conf.d/graftnoded.sh && chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && chmod +x /home/graft-sn/supernode/blockchain.sh
 
 RUN cd /home/graft-sn/supernode && git clone --recursive -b master https://github.com/Fez29/graft-sn-watchdog.git \
 		&& cd graft-sn-watchdog \ 
-		&& chmod +x gn.sh \ 
-		&& chmod +x gs.sh \
+		##&& chmod +x gn.sh \ 
+		##&& chmod +x gs.sh \
 		&& apt-get install python3-pip -y \
 		&& pip3 install requests
 
