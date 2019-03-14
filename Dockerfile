@@ -4,7 +4,7 @@ ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed
 
 RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 
-RUN curl -s https://deb.graft.community/public.gpg | sudo apt-key add -
+RUN curl -s https://deb.graft.community/public.gpg | sudo apt-key add - && \
     echo "deb https://deb.graft.community sid main" | sudo tee /etc/apt/sources.list.d/graft.community.list
 
 RUN apt update && apt install graft-supernode-wizard selinux-basics -y
