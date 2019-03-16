@@ -54,7 +54,7 @@ RUN cd /home/graft-sn/supernode/ \
 
 RUN sudo cat /etc/sudoers
 
-RUN ln -sf bash /bin/sh
+RUN sudo ln -sf bash /bin/sh
 
 WORKDIR /home/graft-sn/supernode/
 
