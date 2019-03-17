@@ -1,5 +1,9 @@
 FROM debian:buster
 
+ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed sudo git ca-certificates wget curl
+
+RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y $BUILD_PACKAGES
+
 RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
     echo "deb https://deb.graft.community sid main" | tee /etc/apt/sources.list.d/graft.community.list
 
@@ -11,19 +15,15 @@ RUN apt install sudo -y \
 
 USER graft-sn
 
-ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed sudo
-
-RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y $BUILD_PACKAGES
-
-ENV PACKAGES git ca-certificates
+#ENV PACKAGES git ca-certificates
 
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y $PACKAGES && cd /opt && sudo git clone --recursive -b non_root_user https://github.com/Fez29/fez-graft-docker.git && sudo apt-get clean && sudo apt-get autoremove -y && \
         sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         sudo cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/ && \
-		sudo rm -r /opt/fez-graft-docker && \
-		sudo apt-get clean && apt-get autoremove -y
+	sudo rm -r /opt/fez-graft-docker && \
+	sudo apt-get clean && apt-get autoremove -y
 
-RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y ca-certificates wget curl && \
+RUN sudo apt-get update && \
 	sudo apt-get clean && sudo apt-get autoremove -y
 
 RUN sudo cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh && sudo cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage && sudo chmod +x /etc/supervisor/conf.d/graftnoded.sh && sudo chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && sudo chmod +x /home/graft-sn/supernode/blockchain.sh
