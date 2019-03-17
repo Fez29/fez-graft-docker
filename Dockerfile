@@ -29,7 +29,7 @@ RUN sudo apt-get update && \
 RUN sudo cp /etc/supervisor/conf.d/blockchain.sh /home/graft-sn/supernode/blockchain.sh && sudo cp /etc/supervisor/conf.d/blockchain.sh_usage /home/graft-sn/supernode/blockchain.sh_usage && sudo chmod +x /etc/supervisor/conf.d/graftnoded.sh && sudo chmod +x /etc/supervisor/conf.d/graftnoded_second.sh && sudo chmod +x /home/graft-sn/supernode/blockchain.sh
 
 RUN cd /home/graft-sn/supernode && sudo git clone --recursive -b master https://github.com/Fez29/graft-sn-watchdog.git \
-		&& sudo cd graft-sn-watchdog \ 
+		&& cd graft-sn-watchdog \ 
 		&& sudo chmod +x gn.sh \ 
 		&& sudo chmod +x gs.sh \
 		&& sudo apt-get install python3-pip -y \
