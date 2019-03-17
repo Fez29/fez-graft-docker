@@ -1,5 +1,9 @@
 FROM debian:buster
 
+RUN apt install sudo -y \
+	&& cp /etc/sudoers /etc/sudoers.bak \
+	&& echo "graft-sn ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed sudo git ca-certificates wget curl
 
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y $BUILD_PACKAGES
@@ -8,10 +12,6 @@ RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
     echo "deb https://deb.graft.community sid main" | tee /etc/apt/sources.list.d/graft.community.list
 
 RUN apt update && apt install graftnoded graft-supernode graft-blockchain-tools graft-wallet selinux-basics -y && mkdir -p /home/graft-sn/supernode
-
-RUN apt install sudo -y \
-	&& cp /etc/sudoers /etc/sudoers.bak \
-	&& echo "graft-sn ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER graft-sn
 
