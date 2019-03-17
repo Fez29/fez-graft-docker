@@ -4,9 +4,11 @@ RUN apt update && apt install sudo -y \
 	&& cp /etc/sudoers /etc/sudoers.bak \
 	&& echo "graft-sn ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed sudo git ca-certificates wget curl
+RUN useradd graft-sn && usermod -aG sudo graft-sn
 
-RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y $BUILD_PACKAGES
+ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed git ca-certificates wget curl
+
+RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 
 RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
     echo "deb https://deb.graft.community sid main" | tee /etc/apt/sources.list.d/graft.community.list
