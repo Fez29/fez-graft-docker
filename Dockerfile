@@ -58,7 +58,7 @@ RUN sudo ln -sf bash /bin/sh
 
 WORKDIR /home/graft-sn/supernode/
 
-#ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
+#ENTRYPOINT ["bash","-c","sudo systemctl start graft-noded-alpha.service"]
 #########################
 #WORKIN
 #########################
