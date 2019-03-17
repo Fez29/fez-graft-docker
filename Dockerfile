@@ -17,7 +17,7 @@ RUN apt update && apt install graftnoded graft-supernode graft-blockchain-tools 
 
 #ENV PACKAGES git ca-certificates
 
-RUN sudo apt-get update && sudo cd /opt && sudo git clone --recursive -b non_root_user https://github.com/Fez29/fez-graft-docker.git && sudo apt-get clean && sudo apt-get autoremove -y && \
+RUN sudo apt-get update && cd /opt && sudo git clone --recursive -b non_root_user https://github.com/Fez29/fez-graft-docker.git && sudo apt-get clean && sudo apt-get autoremove -y && \
         sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         sudo cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/ && \
 	sudo rm -r /opt/fez-graft-docker && \
