@@ -41,7 +41,7 @@ EXPOSE 28690
 
 RUN cd /home/graft-sn/supernode/ \
 	## OLD && sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
-	&& cp /usr/share/doc/graft-supernode/config.ini ~/supernode/config.ini \
+	&& cp /usr/share/doc/graft-supernode/config.ini /home/graft-sn/supernode/config.ini \
 	&& sudo mkdir -p /home/graft-sn/.graft \
 	&& sudo groupadd supernode \
 	&& sudo usermod -a -G supernode graft-sn \
