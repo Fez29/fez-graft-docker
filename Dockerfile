@@ -15,8 +15,6 @@ RUN curl -s https://deb.graft.community/public.gpg | apt-key add - && \
 
 RUN apt update && apt install graftnoded graft-supernode graft-blockchain-tools graft-wallet selinux-basics -y && mkdir -p /home/graft-sn/supernode
 
-USER graft-sn
-
 #ENV PACKAGES git ca-certificates
 
 RUN sudo apt-get update && sudo cd /opt && sudo git clone --recursive -b non_root_user https://github.com/Fez29/fez-graft-docker.git && sudo apt-get clean && sudo apt-get autoremove -y && \
@@ -57,6 +55,8 @@ RUN cd /home/graft-sn/supernode/ \
 RUN sudo cat /etc/sudoers
 
 RUN sudo ln -sf bash /bin/sh
+
+USER graft-sn
 
 WORKDIR /home/graft-sn/supernode/
 
