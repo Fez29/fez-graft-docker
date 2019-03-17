@@ -1,6 +1,6 @@
 FROM debian:buster
 
-RUN apt install sudo -y \
+RUN apt update && apt install sudo -y \
 	&& cp /etc/sudoers /etc/sudoers.bak \
 	&& echo "graft-sn ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
