@@ -60,7 +60,7 @@ USER graft-sn
 
 WORKDIR /home/graft-sn/supernode/
 
-ENTRYPOINT ["bash","-c","graftnoded --testnet --detach"]
+ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
 #########################
 #WORKIN
 #########################
