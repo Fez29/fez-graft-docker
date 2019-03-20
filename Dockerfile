@@ -6,7 +6,7 @@ RUN apt update && apt install sudo -y \
 
 RUN useradd graft-sn && usermod -aG sudo graft-sn
 
-ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed git ca-certificates wget curl
+ENV BUILD_PACKAGES ca-certificates curl gnupg2 sed git ca-certificates wget curl systemd
 
 RUN apt-get update && apt-get install --no-install-recommends -y $BUILD_PACKAGES
 
