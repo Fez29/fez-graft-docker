@@ -49,7 +49,7 @@ RUN cd /home/graft-sn/supernode/ \
 	&& sudo usermod -a -G supernode graft-sn \
 	&& sudo chgrp -R supernode /home/graft-sn \
 	&& sudo chmod -R g+w /home/graft-sn \
-    && sudo systemctl enable graftnoded.service \
+    	&& sudo systemctl enable graftnoded.service
     #&& sudo systemctl start graftnoded.service \
 
 	####OLD
