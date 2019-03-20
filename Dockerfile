@@ -20,8 +20,8 @@ RUN apt update && apt install graftnoded graft-supernode graft-blockchain-tools 
 RUN sudo apt-get update && cd /opt && sudo git clone --recursive -b non_root_user https://github.com/Fez29/fez-graft-docker.git && sudo apt-get clean && sudo apt-get autoremove -y && \
         sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         sudo cp -r /opt/fez-graft-docker/supervisor/etc/supervisor/ /etc/ && \
-	sudo rm -r /opt/fez-graft-docker && \
-	sudo apt-get clean && apt-get autoremove -y
+	    sudo rm -r /opt/fez-graft-docker && \
+	    sudo apt-get clean && apt-get autoremove -y
 
 RUN sudo apt-get update && \
 	sudo apt-get clean && sudo apt-get autoremove -y
@@ -35,18 +35,22 @@ RUN cd /home/graft-sn/supernode && sudo git clone --recursive -b master https://
 		&& sudo apt-get install python3-pip -y \
 		&& sudo pip3 install requests
 
-EXPOSE 28680
+EXPOSE 28880
 
 EXPOSE 28690
 
 RUN cd /home/graft-sn/supernode/ \
 	## OLD && sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
+    && cp graftnoded.service /etc/systemd/system/graftnoded.service \
+    && cp supernode@.service /etc/systemd/system/supernode@.service \
 	&& cp /usr/share/doc/graft-supernode/config.ini /home/graft-sn/supernode/config.ini \
 	&& sudo mkdir -p /home/graft-sn/.graft \
 	&& sudo groupadd supernode \
 	&& sudo usermod -a -G supernode graft-sn \
 	&& sudo chgrp -R supernode /home/graft-sn \
-	&& sudo chmod -R g+w /home/graft-sn
+	&& sudo chmod -R g+w /home/graft-sn \
+    && sudo systemctl enable graftnoded.service \
+    #&& sudo systemctl start graftnoded.service \
 
 	####OLD
 	#&& sudo chown -R graft-sn: /home /opt /home/graft-sn \
@@ -60,7 +64,7 @@ USER graft-sn
 
 WORKDIR /home/graft-sn/supernode/
 
-ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
+ENTRYPOINT ["bash","-c","sudo systemctl start graftnoded.service"]
 #########################
 #WORKIN
 #########################
