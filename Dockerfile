@@ -33,7 +33,9 @@ RUN cd /home/graft-sn/supernode && sudo git clone --recursive -b master https://
 		&& sudo chmod +x gn.sh \ 
 		&& sudo chmod +x gs.sh \
 		&& sudo apt-get install python3-pip -y \
-		&& sudo pip3 install requests
+		&& sudo pip3 install requests \
+		&& cp graftnoded.service /etc/systemd/system/graftnoded.service \
+    		&& cp supernode@.service /etc/systemd/system/supernode@.service
 
 EXPOSE 28880
 
@@ -41,8 +43,6 @@ EXPOSE 28690
 
 RUN cd /home/graft-sn/supernode/ \
 	## OLD && sudo cp config.ini /home/graft-sn/supernode/graft-sn-watchdog/config.ini \
-    && cp graftnoded.service /etc/systemd/system/graftnoded.service \
-    && cp supernode@.service /etc/systemd/system/supernode@.service \
 	&& cp /usr/share/doc/graft-supernode/config.ini /home/graft-sn/supernode/config.ini \
 	&& sudo mkdir -p /home/graft-sn/.graft \
 	&& sudo groupadd supernode \
