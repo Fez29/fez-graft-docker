@@ -67,7 +67,7 @@ WORKDIR /home/graft-sn/supernode/
 #ENTRYPOINT ["/usr/sbin/init"]
 #CMD ["systemctl start graftnoded.service"]
 
-ENTRYPOINT ["bash","-c","sudo systemctl start graftnoded.service"]
+ENTRYPOINT ["bash","-c","/home/graft-sn/supernode/graft-sn-watchdog/gn.sh"]
 #########################
 #WORKIN
 #########################
